@@ -5,3 +5,4 @@
 -[ ] Implement Keybord output
 -[ ] Add more things to the to do list
 -[ ] Get an interface working 
+-[ ] Research
