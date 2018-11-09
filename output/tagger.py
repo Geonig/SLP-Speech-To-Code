@@ -10,7 +10,7 @@ class tags(Enum):
     MVB = '#MVB#'
     MVE = '#MVE#'
     MVS = '#MVS#'
-    P = '#P#'
+    P = '#P_#'
     JU = '#JU#'
     JD = '#JD#'
     EXT = '#EXT'
@@ -21,35 +21,38 @@ def fix_brakets(stmt):
    return '%s{%s%s' % (front,tags.ENT.value,back)
 
 def fix_param(stmt):
-   'add the postional tag for if, else, single param methods ,do ,while loops'
-   front,back = stmt.split("(")
-   value = tags.P.value
-   value = list(value)
-   value = value[:2]+[str(1)]+value[2:]
+   '''add the postional tag for conditional structures and methods with only one stament'''
+   front,back = stmt.split("(") # [ 'if', '){}']
+   value = tags.P.value         # '#P_#'
+   value = list(value)          # [#,P,_,#]
+   value = value[:2]+[str(0)]+value[3:]
    value = ''.join(value)
    return '%s(%s%s'% (front,value,back)
 
 def fix_params(stmt):
     '''add the positional tag from multiple argument method and conditional
     structures'''
-    front, back = stmt.split('(')
+    front, back = stmt.split('(') #public static my method(,,,){}
     #get the number of params
-    values =back.split(',')
-    if len(values) == 1 :
+    arg_num = back.split(',')     # we care about last and first values
+    if len(arg_num) == 1 :
         return fix_param(stmt)
     else:
-        for val, i in enumerate(values):
-             val = tags.P.value
-             val = list(val)
-             val = val[:2]+[str(i)]+val[2:]
-             val = ''.join(val)
-        values = ''.join(values)
-        return '%s(%s%s'% (front,values,back)
-    
+        values = ''
+        for  i in range(len(arg_num)):
+             value = tags.P.value
+             values += value.replace('_', str(i)) + ","
+        values = values[:-1]
+        return '%s(%s%s'% (front,values,arg_num[-1])
+
+def comma_separator(stmt):
+    return stmt.replace(',',','+ tags.SPC.value)
+
 def tag(stmt):
     '''automatic tag the given statement'''
     stmt = fix_brakets(stmt)
-    stmt = fix_param(stmt)
+    stmt = fix_params(stmt)
+    stmt = comma_separator(stmt)
     return stmt
 
 

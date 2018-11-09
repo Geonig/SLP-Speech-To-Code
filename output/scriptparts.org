@@ -129,7 +129,7 @@ sotution is to put some tags that move cursor correctly and know where to put it
 | move backward           | /#MVB#/        |
 | move to end of line     | /#MVE#/        |
 | move to start of line   | /#MVS#/        |
-| search next position to | /#P1# #P2# ../ |
+| search next position to | /#P0# #P1# ../ |
 | jump UP                 | /#JU<lines>#/  |
 | jump Down               | /#JD<lines>#/  |
 | exit region             | /#EXT#/        |
@@ -137,8 +137,8 @@ sotution is to put some tags that move cursor correctly and know where to put it
 after applying these tags the program should become
 #+BEGIN_SRC java
 public class HelloWorld {#ENT#}
-public static void main(#P1#){}
+public static void main(#P0#){}
 String[] args
-System.out.print.ln(#P1#);#ENT#
+System.out.print.ln(#P0#);#ENT#
 "Hello,World"
 #+END_SRC
