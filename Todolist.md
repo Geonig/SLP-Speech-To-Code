@@ -7,3 +7,4 @@
 - [ ] Add more things to the to do list
 - [ ] Get an interface working 
 - [ ] Research
+- [ ] Part E of Final Project Assignments
