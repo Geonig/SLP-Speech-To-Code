@@ -1,0 +1,122 @@
+; legends
+; staring with:
+;         c = class
+;         m = method
+;         s = statment
+;         dcl = declaration
+         
+
+;expected  the grammar to generate with the input of the interpreter 
+<start>     ::- <action>|<cmd><stmt>  
+
+;start      
+<action>    ::- "go to"<line>|"jump"<loc>|"move"<line>
+<line>      ::- <num> |<num><dir>
+<num>       ::- [\d]+
+<dir>       ::- "up"|"down"|"left"|"right"|
+<loc>       ::- "end"|"begining"|"start"
+
+;start
+<cmd>       ::- "create"|"make"|"do"|"let"|
+<stmt>      ::- <dcl>|<cond>|<method>|<class>
+
+;smnt
+<dcl>       ::- <assig>|<mdcl>
+<cond>      ::- <if>|<while>|<do>|<for>
+<method>    ::- <mvis>" "<qual>" "<type> <var>(){}
+<class>     ::- <cvis>" "class" <idc>" "{}
+
+;dcl
+<assig>     ::- <var>" = "<dcl>" ;"
+<mdcl>      ::- <var>" = "<id>"(){}"
+
+;assig
+<var>       ::- <id>                       ;incomplete
+<id>        ::- [a-z]*[\w_.]*              ;incomplete
+
+;cond
+<if>        ::- "if (" <bxpr>"){}" 
+<while>     ::- "while("<bxpr>"){}"
+<do>        ::- "do{}while("<bxpr>" ){}"
+<for>       ::- "for("<exp>"; "<bxpr>"; "<exp>){}
+
+<exp>       ::- <var>|val" "<sym>" " <var>  ;incomplete
+<bxpr>      ::- <var>" "<bcmp>" "<var>  ;incomplete
+
+;exp
+<sym>       ::- "+"|"-"|"/"|"*"|"%"
+
+;bxpr
+<bcmp>      ::- "<"|">"|"<="|">="|"!="
+
+;method
+<mvis>      ::-  "public"|"private"|"protected"                             ;incomplete
+<mqual>     ::-  "static"|""                                                ;incomplete
+<type>      ::-  "void"|"integer|"int"|"string"|"boolean"|"bool"|
+                 "short" |"long"|"float"|"double"|character"|"char"|"byte"  ;incomplete
+
+;class
+<cid>       ::- "[A-Z][\w]*
+<cvis>      ::- "public"|"private"|"abstract"|"interface"
+
+
+;==================================================================
+; expected for the interpreter to send
+
+<start>     ::- <action>|<cmd><stmt>  
+
+;start      
+<action>    ::- <line>|<loc>|<line>
+<line>      ::- <num> |<num><dir>
+<num>       ::- [\d]+
+<dir>       ::- "up"|"down"|"left"|"right"|
+<loc>       ::- "end"|"begining"|"start"
+
+;start
+<cmd>       ::- "create"|"make"|"do"|"let"|
+<stmt>      ::- <dcl>|<cond>|<method>|<class>
+
+;smnt
+<dcl>       ::- <assig>|<mdcl>
+<cond>      ::- <if>|<while>|<do>|<for>
+<method>    ::- <mvis><qual><type><var>
+<class>     ::- <cvis><idc>
+
+;dcl
+<assig>     ::- <var><dcl>
+<mdcl>      ::- <var><id>
+
+;assig
+<var>       ::- <id>                       ;incomplete
+<id>        ::- [a-z]*[\w_.]*              ;incomplete
+
+;cond
+<if>        ::- <bxpr> 
+<while>     ::- <bxpr>
+<do>        ::- <bxpr>
+<for>       ::- <exp><bxpr><exp>
+
+<exp>       ::- <var><sym><var>|  ;incomplete
+<bxpr>      ::- <var><bcmp><var>| ;incomplete
+
+;exp
+<sym>       ::- "add"|"subtract"|"divide"|"multiply"|"modulus"|"add"
+
+;bxpr
+<bcmp>      ::- "less"|"greater"|"less or equal"|"greater or equal"|"equal"|"equals"
+
+;method
+<mvis>      ::-  "public"|"private"|"protected"                             ;incomplete
+<mqual>     ::-  "static"|""                                                ;incomplete
+<type>      ::-  "void"|"integer|"int"|"string"|"boolean"|"bool"|
+                 "short" |"long"|"float"|"double"|character"|"char"|"byte"  ;incomplete
+
+;class
+<cid>       ::- "[A-Z][\w]*
+<cvis>      ::- "public"|"private"|"abstract"|"interface"
+
+;examples
+private class MyClass{} ->
+
+{"cmd":"make a","stmt":{"class":{"visivility": "public","idc":"my class"}}}
+
