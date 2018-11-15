@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/SLP-Speech-To-Code/v15/Browse.VC.db
+/UI/Project1/.vs/Speech To Code UI/v15/Browse.VC.db
+/.vs
+*.opendb
