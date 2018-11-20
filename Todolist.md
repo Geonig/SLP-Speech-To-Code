@@ -14,7 +14,7 @@ General / Overall progress
 - [ ] Part G of Final Project Assignments
 
 UI
-- [ ] Basic window done
+- [x] Basic window done
 - [ ] Add graphics
 - [ ] Add interactive elements
 - [ ] Connect to other modules 
