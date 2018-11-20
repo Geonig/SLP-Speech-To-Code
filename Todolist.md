@@ -12,6 +12,7 @@ General / Overall progress
 - [ ] Part F of Final Project Assignments
 - [ ] Part G of Final Project Assignments
 
+
 UI
 - [x] Basic window done
 - [ ] Add graphics
@@ -20,9 +21,13 @@ UI
 - [ ] Add application switching capabilities(to switch to text editor selected by user)  
 
 
-
 Listener
-- [ ] Add task and Update on progress/bugs
+- [x] Add task and Update on progress/bugs
+- [ ] since recognition is bad - add more words to the grammar
+- [ ] get the listener to return a String
+- [ ] make a system call to a Python Script 
+- [ ] pass the RC string to said Python Script
+- [ ] think about abandoning Sphinx4 in favor of Google Cloud API?
 
 
 Interpreter
@@ -32,7 +37,7 @@ Interpreter
 Translator
 - [ ] Add task and Update on progress/bugs
 
+
 Code Writer
 - [ ] Implement Keybord output
 - [ ] Add task and Update on progress/bugs
-
