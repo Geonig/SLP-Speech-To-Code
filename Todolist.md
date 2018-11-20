@@ -5,7 +5,6 @@ General / Overall progress
 - [x] Make a to do list
 - [ ] Get speech to code working 
 - [ ] Build regular expression tree
-- [ ] Implement Keybord output
 - [ ] Add more things to the to do list
 - [ ] Get an interface working 
 - [ ] Research
@@ -34,5 +33,6 @@ Translator
 - [ ] Add task and Update on progress/bugs
 
 Code Writer
+- [ ] Implement Keybord output
 - [ ] Add task and Update on progress/bugs
 
