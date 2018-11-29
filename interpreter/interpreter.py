@@ -1,8 +1,3 @@
-import warnings
-warnings.filterwarnings("ignore")
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
-
 import sys
 import re
 import nltk
@@ -15,9 +10,9 @@ commandRe = re.compile('[mM]ake|[Cc]reate|[Gg]ive')
 actionRe = re.compile('')
 stateRe = re.compile('(if)|(while)|(else)|(else \s+ if)|(for)|(class)|(method)')
 dataRe = re.compile('(?P<int>int(eger))|(?P<array>array)|(?P<String>string)|(?P<object>object)')
-symbolsRe = re.compile('((greater|less)\s*than)|(equal|set)|(not)|(add)|(subtract)|(minus)|(plus)|(times)|(divided)')
-symbolsList = [ 'greater than', '> ', 'less than', '<' , 'equal', '=' , 'set', '=' , 'not', '!', 'add', '+', 'subtract', '-' , 'minus' , '-', 'plus', '+', 'times', '*', 'divided', '/']
-stopWords = re.compile( 'a|it|its|too|to|greater|less|named|called|private|public'  )
+symbolsRe = re.compile('((greater|less)\s*than)|(equal|set|value|containing|contains)|(not)|(add)|(subtract)|(minus)|(plus)|(times)|(divided)')
+symbolsList = [ 'greater than', '> ', 'less than', '<' , 'equal', '=' , 'set', '=' ,'value','=','containing' , '=' , 'contains' , '='  , 'not', '!', 'add', '+', 'subtract', '-' , 'minus' , '-', 'plus', '+', 'times', '*', 'divided', '/']
+stopWords = re.compile( 'a|it|its|too|to|greater|less|named|called|private|public|of|variable'  )
 
 #def reCommands(vinput):
     
@@ -25,6 +20,7 @@ stopWords = re.compile( 'a|it|its|too|to|greater|less|named|called|private|publi
 #def reActios(vinput):
     
 
+#Method that checks if there are statements in the input. By default it adds public to classes and methods unless they are specifically rquested private.
 def reStatements(vinput):
 
     token = ' '.join(vinput)
@@ -47,7 +43,7 @@ def reStatements(vinput):
     return output
     
 
-
+#Method that checks if there are symvols in the input and returns thier .
 def reSymbols(vinput):
 
     token = ' '.join(vinput)
@@ -143,6 +139,6 @@ symbols = reSymbols(voiceinput)
 names = reNames(voiceinput)
 values = reNumbers(voiceinput)
 
-interpretedString = statements + datatypes + symbols + ' '.join(names) + ' '.join(values)
+interpretedString = statements + ' ' + datatypes + ' ' + symbols + ' ' +' '.join(names) + ' ' +' '.join(values)
 
 print(interpretedString)
