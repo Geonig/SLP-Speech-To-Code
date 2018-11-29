@@ -1,5 +1,6 @@
 #The simple gui from: https://docs.python.org/3/library/tkinter.html
 
+import os
 import tkinter as tk
 import speech_recognition as sr
 #quiet the endless 'insecurerequest' warning
@@ -8,6 +9,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
  
 from pygame import mixer
 mixer.init()
+
+import interpreter as ii
+import output as op
 
 class Application(tk.Frame):
 	def __init__(self, master=None):
@@ -44,6 +48,9 @@ class Application(tk.Frame):
 					print("I think you said '" + response + "'")
 
 					if (len(response) > 10):
+						#execfile('file.py', input )
+						#os.system("interpreter.py " + response)
+						op.output(ii.interpret(response))				#this line became interesting
 						return response	
 
 				except sr.UnknownValueError:
