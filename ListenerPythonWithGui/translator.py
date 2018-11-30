@@ -15,6 +15,7 @@ class translator:
 #        formatter.__init__(result)  #send it to the next stage.
         
     def translate2java(self,text):
+        counter = 100 #not solution found verification
         output = []
         text =[token for token in text.split(" ") if not token  == '']
         while(not text == []):
@@ -40,8 +41,11 @@ class translator:
             #for loops
             elif(self.is_for_loop(text[0])):
                 output.append(self.trans_forloop(text))
-        
-        #print(output)
+
+            counter -= 1
+            if counter == 0:
+                return 'translator error'
+
         return output
 
     #checkers
