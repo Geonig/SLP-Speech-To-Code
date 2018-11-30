@@ -26,6 +26,9 @@ class translator:
             #newly created variables
             elif (self.is_java_type(text[0])):
                 output.append(self.trans_assig(text))
+            #modify existing variables
+            elif(text[0] == '='):
+                output.append(self.trans_mod(text))
             #conditional structures
             elif(self.is_conditional(text[0])):
                 output.append(self.trans_conditional(text))
@@ -55,20 +58,31 @@ class translator:
     visibility_type = lambda self, token: re.search(r'public|private',token,re.I)
         
     def trans_assig(self,text):
-        #<type> <name> <new> <value>
+        #<type> "=" <value> <name>
         var_type = text.pop(0)
-        name = text.pop(0)
-        if self.is_new_inst(text):
-            value = text.pop(1)
-            value = text.remove('new')
-            return'{} {} = {};'.format(var_type,name,value)
+        sign = text.pop(0)
+        if (var_type == 'String'):
+            name = text.pop(0)
+            value = text.pop(0)
+        else:
+            name = text.pop(0)
+            value = text.pop(0)
+        return'{} {} = {};'.format(var_type,name,value)
+
+    def trans_mod(self,text):
+        # = <name> <value>
+        text.pop(0)
+        name  =  text.pop(0)
         value = text.pop(0)
-        return '{} = {};'.format(name,value)
-    
+        return'{} = {};'.format(name,value)
+       
     def trans_conditional(self,text):
-        #<if|else|while|> <name> <symb> <name>
+        #<if|else|while|> <symb> <name1> <name2>
         conditional = text.pop(0)
-        return '%s (){}, '% (conditional)
+        symb = text.pop(0)
+        vall = text.pop(0)
+        val2 = text.pop(0)
+        return '%s(%s %s %s){}, '% (conditional,vall,symb,val2)
 
     def trans_forloop(self,text):
         #<for> <> <> <>
