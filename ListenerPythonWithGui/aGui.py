@@ -31,7 +31,7 @@ class Application(tk.Frame):
 		self.quit.pack(side="bottom")
 
 	def theListenr(self): 
-		while (True == True):
+		while True: #(True == True):
 			# obtain audio from the microphone
 				r = sr.Recognizer()
 				with sr.Microphone() as source:
@@ -53,11 +53,17 @@ class Application(tk.Frame):
 						#os.system("interpreter.py " + response)	#same here
 						interpretation = (ii.interpret(response))
 						#print(interpretation)						#not needed since the interpreter prints it's output
-						translation = tr(interpretation)
+						translation = tr(interpretation)  
+						trResult = translation.translate2java()
 						#x = translator('print hello')
 						#translation = tr.translator(interpretation)
-						print("The Translator returns: '" + translation + "'")
-						#op.output(tr(				#this line became interesting
+						#print("The Translator returns: '" + trResult + "'")
+						print("The Translator returns")
+						print(trResult)
+						print(type (trResult))							#for debugging. trResult is a list.
+						str1 = ''.join(trResult)
+						print("The Translator returns: '" + str1 + "'")
+						op.output(str1)				#this line became interesting
 						return response	
 
 				except sr.UnknownValueError:
