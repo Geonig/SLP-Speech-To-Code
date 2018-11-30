@@ -6,15 +6,15 @@ import formatter
 
 class translator:
     '''Class would translate the meta java code into formal java code.'''
-    def __init__(self):
-        pass
+    def __init__(self,text):
+        self.text = text
 
 #        formatter.__init__(result)  #send it to the next stage.
         
-    def translate2java(self,text):
+    def translate2java(self):
         counter = 100 #not solution found verification
         output = []
-        text =[token for token in text.split(" ") if not token  == '']
+        text =[token for token in self.text.split(" ") if not token  == '']
         while(not text == []):
             #print statements
             #print (text)
