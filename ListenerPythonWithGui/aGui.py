@@ -12,6 +12,7 @@ mixer.init()
 
 import interpreter as ii
 import output as op
+from translator import translator as tr
 
 class Application(tk.Frame):
 	def __init__(self, master=None):
@@ -45,12 +46,18 @@ class Application(tk.Frame):
 					#response = r.recognize_sphinx(audio)
 					response = r.recognize_google(audio)
 					#print(type (response))								#for debugging. response is, of course, a string.
-					print("I think you said '" + response + "'")
+					print("The Listener returns: '" + response + "'")
 
 					if (len(response) > 10):
-						#execfile('file.py', input )
-						#os.system("interpreter.py " + response)
-						op.output(ii.interpret(response))				#this line became interesting
+						#execfile('file.py', input )				#not running the file this way since it's all python now
+						#os.system("interpreter.py " + response)	#same here
+						interpretation = (ii.interpret(response))
+						#print(interpretation)						#not needed since the interpreter prints it's output
+						translation = tr(interpretation)
+						#x = translator('print hello')
+						#translation = tr.translator(interpretation)
+						print("The Translator returns: '" + translation + "'")
+						#op.output(tr(				#this line became interesting
 						return response	
 
 				except sr.UnknownValueError:

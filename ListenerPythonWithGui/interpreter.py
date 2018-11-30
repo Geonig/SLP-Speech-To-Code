@@ -138,7 +138,8 @@ def interpret(voiceinput):
 
     interpretedString = statements + ' ' + datatypes + ' ' + symbols + ' ' +' '.join(names) + ' ' +' '.join(values)
 
-    print(interpretedString)
+    #print(interpretedString)
+    print("The Interpreter returns: '" + interpretedString + "'")
     return interpretedString
 
 #interpret('while death is not true live')			#for debugging
