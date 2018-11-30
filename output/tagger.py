@@ -1,9 +1,11 @@
 from enum import Enum, unique
+
 @unique
 class tags(Enum):
     '''list of the tags used to communicate to the formatter'''
     ENT = '#ENT#'
     SPC = '#SPC#'
+    TAB = '#TAB#'
     MVU = '#MVU#'
     MVD = '#MVD#'
     MVF = '#MVF#'
