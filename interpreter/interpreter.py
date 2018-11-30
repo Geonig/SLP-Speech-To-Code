@@ -8,7 +8,7 @@ from nltk.corpus import stopwords
 
 commandRe = re.compile('[mM]ake|[Cc]reate|[Gg]ive')
 actionRe = re.compile('')
-stateRe = re.compile('(if)|(while)|(else)|(else \s+ if)|(for)|(class)|(method)')
+stateRe = re.compile('(if)|(while\s*loop)|(else)|(else \s+ if)|(for\s*loop)|(class)|(method)')
 dataRe = re.compile('(?P<int>int(eger))|(?P<array>array)|(?P<String>string)|(?P<object>object)')
 symbolsRe = re.compile('((greater|less)\s*than)|(equal|set|value|containing|contains|declare)|(not)|(add)|(subtract)|(minus)|(plus)|(times)|(divided)')
 symbolsList = [ 'greater than', '> ', 'less than', '<' , 'equal', '=' , 'set', '=' ,'value','=','containing' , '=' , 'contains' , '='  ,'declare','=', 'not', '!', 'add', '+', 'subtract', '-' , 'minus' , '-', 'plus', '+', 'times', '*', 'divided', '/']
@@ -140,6 +140,7 @@ def interpret(voiceinput):
     interpretedString = statements + ' ' + datatypes + ' ' + symbols + ' ' +' '.join(names) + ' ' +' '.join(values)
 
     print(interpretedString)
+    return interpretedString
 
 
 #interpret('while death is not true live')
