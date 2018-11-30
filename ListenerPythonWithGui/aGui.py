@@ -58,9 +58,9 @@ class Application(tk.Frame):
 						#x = translator('print hello')
 						#translation = tr.translator(interpretation)
 						#print("The Translator returns: '" + trResult + "'")
-						print("The Translator returns")
-						print(trResult)
-						print(type (trResult))							#for debugging. trResult is a list.
+						#print("The Translator returns")	#for debug consider throwing out
+						#print(trResult)					#for debug consider throwing out	
+						#print(type (trResult))							#for debugging. trResult is a list.
 						str1 = ''.join(trResult)
 						print("The Translator returns: '" + str1 + "'")
 						op.output(str1)				#this line became interesting
