@@ -6,12 +6,9 @@ import formatter
 
 class translator:
     '''Class would translate the meta java code into formal java code.'''
-    def __init__(self,input_text):
-        print("is this even reached?")
-        result = self.translate2java(input_text)  #set up the translation
-        print("not reached")
-        print(result)
-        return result
+    def __init__(self):
+        pass
+
 #        formatter.__init__(result)  #send it to the next stage.
         
     def translate2java(self,text):
