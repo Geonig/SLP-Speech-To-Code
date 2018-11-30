@@ -12,7 +12,7 @@ stateRe = re.compile('(if)|(while\s*loop)|(else)|(else \s+ if)|(for\s*loop)|(cla
 dataRe = re.compile('(?P<int>int(eger))|(?P<array>array)|(?P<String>string)|(?P<object>object)')
 symbolsRe = re.compile('((greater|less)\s*than)|(equal|set|value|containing|contains|declare)|(not)|(add)|(subtract)|(minus)|(plus)|(times)|(divided)')
 symbolsList = [ 'greater than', '> ', 'less than', '<' , 'equal', '=' , 'set', '=' ,'value','=','containing' , '=' , 'contains' , '='  ,'declare','=', 'not', '!', 'add', '+', 'subtract', '-' , 'minus' , '-', 'plus', '+', 'times', '*', 'divided', '/']
-stopWords = re.compile( 'a|it|its|too|to|greater|less|named|called|private|public|of|variable'  )
+stopWords = re.compile( 'a|it|its|too|to|greater|less|named|called|private|public|of|variable|with'  )
 
 #def reCommands(vinput):
     
@@ -33,10 +33,14 @@ def reStatements(vinput):
     if 'private' in vinput:
         if re.match('(class)|(method)', output):
             output = 'private ' + output
+        if 'with' in vinput:
+            output = output + 'with'
             return output
 
     if re.match('(class)|(method)', output):
         output = 'public ' + output
+        if 'with' in vinput:
+            output = output + 'with'
     
     return output
     

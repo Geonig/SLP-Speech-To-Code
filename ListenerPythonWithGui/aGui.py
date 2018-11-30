@@ -1,4 +1,18 @@
-#The simple gui from: https://docs.python.org/3/library/tkinter.html
+"""
+python3 output.py
+
+@Author Andreas
+	Fall 2018
+
+Scope:
+	This makes a tkinter pop up window with two buttons.
+	Click the first button and the System prompts you for voice input.
+		The system should then give output in another pop up window.
+	Click the second button to quit.
+	
+References:
+The simple gui from: https://docs.python.org/3/library/tkinter.html
+"""
 
 import os
 import tkinter as tk
@@ -10,7 +24,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from pygame import mixer
 mixer.init()
 
-import interpreter as ii
+import listener as lr
+#possibly not needed in This file anymore
+import interpreter as ii					
 import output as op
 from translator import translator as tr
 
@@ -30,40 +46,8 @@ class Application(tk.Frame):
 		self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
 		self.quit.pack(side="bottom")
 
-	def theListenr(self): 
-		while (True == True):
-			# obtain audio from the microphone
-				r = sr.Recognizer()
-				with sr.Microphone() as source:
-					#print("Please wait. Calibrating microphone...")
-					# listen for 1 second and create the ambient noise energy level
-					r.adjust_for_ambient_noise(source, duration=1)
-					print("Say something!")
-					audio = r.listen(source,phrase_time_limit=None)		#set to 55 instead?
-				 
-			# recognize speech using Sphinx/Google
-				try:
-					#response = r.recognize_sphinx(audio)
-					response = r.recognize_google(audio)
-					#print(type (response))								#for debugging. response is, of course, a string.
-					print("The Listener returns: '" + response + "'")
-
-					if (len(response) > 10):
-						#execfile('file.py', input )				#not running the file this way since it's all python now
-						#os.system("interpreter.py " + response)	#same here
-						interpretation = (ii.interpret(response))
-						#print(interpretation)						#not needed since the interpreter prints it's output
-						translation = tr(interpretation)
-						#x = translator('print hello')
-						#translation = tr.translator(interpretation)
-						print("The Translator returns: '" + translation + "'")
-						#op.output(tr(				#this line became interesting
-						return response	
-
-				except sr.UnknownValueError:
-					print("Sphinx could not understand audio")
-				except sr.RequestError as e:
-					print("Sphinx error; {0}".format(e))
+	def theListenr(self):
+		voiceString = (lr.listener())		
 			
 root = tk.Tk()
 app = Application(master=root)

@@ -1,11 +1,11 @@
 """
-python3 Listener.py
+python3 listener.py
 
 @Author Andreas
 	Fall 2018
 
 Scope:
-	The Method "listenr" takes voice input then prints and returns the a string. 
+	The Method "listener" takes voice input then prints and returns the a string. 
 
 References:
 mostly taken from:
@@ -32,8 +32,12 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from pygame import mixer
 mixer.init()
 
-def theListenr(): 
-	while (True == True):
+import interpreter as ii
+import output as op
+from translator import translator as tr
+
+def listener(): 
+	while True:
 		# obtain audio from the microphone
 			r = sr.Recognizer()
 			with sr.Microphone() as source:
@@ -41,27 +45,30 @@ def theListenr():
 				# listen for 1 second and create the ambient noise energy level
 				r.adjust_for_ambient_noise(source, duration=1)
 				print("Say something!")
-				audio = r.listen(source,phrase_time_limit=None)			#set to 55 instead?
+				audio = r.listen(source,phrase_time_limit=None)		#set to 55 instead?
 			 
 		# recognize speech using Sphinx/Google
 			try:
 				#response = r.recognize_sphinx(audio)
 				response = r.recognize_google(audio)
-				#print(type (response))									#for debugging. response is, of course, a string.
-				print("I think you said '" + response + "'")
+				#print(type (response))								#for debugging. response is, of course, a string.
+				print("The Listener returns: '" + response + "'")
 
 				if (len(response) > 10):
+					#execfile('file.py', input )				#not running the file this way since it's all python now
+					#os.system("interpreter.py " + response)	#same here
+					interpretation = (ii.interpret(response))					
+					translation = tr(interpretation)  
+					trResult = translation.translate2java()
+					#print("The Translator returns")				#for debug consider throwing out
+					#print(trResult)								#for debug consider throwing out	
+					#print(type (trResult))							#for debugging. trResult is a list.
+					str1 = ''.join(trResult)
+					print("The Translator returns: '" + str1 + "'")
+					op.output(str1)				#this line makes the output window pop up
 					return response	
 
-				#return response
-				#tts = gTTS(text="I think you said "+str(response), lang='en')
-
 			except sr.UnknownValueError:
-				print("Sphinx could not understand audio")
+				print("The System could not understand the audio")
 			except sr.RequestError as e:
-				print("Sphinx error; {0}".format(e))
-
-#=== main ==============================================================
-#if __name__ == "__main__":
-theListenr()
-	
+				print("System error; {0}".format(e))

@@ -8,11 +8,11 @@ from nltk.corpus import stopwords
 
 commandRe = re.compile('[mM]ake|[Cc]reate|[Gg]ive')
 actionRe = re.compile('')
-stateRe = re.compile('(if)|(while)|(else)|(else \s+ if)|(for)|(class)|(method)')
+stateRe = re.compile('(if)|(while\s*loop)|(else)|(else \s+ if)|(for\s*loop)|(class)|(method)')
 dataRe = re.compile('(?P<int>int(eger))|(?P<array>array)|(?P<String>string)|(?P<object>object)')
 symbolsRe = re.compile('((greater|less)\s*than)|(equal|set|value|containing|contains|declare)|(not)|(add)|(subtract)|(minus)|(plus)|(times)|(divided)')
 symbolsList = [ 'greater than', '> ', 'less than', '<' , 'equal', '=' , 'set', '=' ,'value','=','containing' , '=' , 'contains' , '='  ,'declare','=', 'not', '!', 'add', '+', 'subtract', '-' , 'minus' , '-', 'plus', '+', 'times', '*', 'divided', '/']
-stopWords = re.compile( 'a|it|its|too|to|greater|less|named|called|private|public|of|variable'  )
+stopWords = re.compile( 'a|it|its|too|to|greater|less|named|called|private|public|of|variable|with'  )
 
 #def reCommands(vinput):
     
@@ -33,10 +33,14 @@ def reStatements(vinput):
     if 'private' in vinput:
         if re.match('(class)|(method)', output):
             output = 'private ' + output
+        if 'with' in vinput:
+            output = output + 'with'
             return output
 
     if re.match('(class)|(method)', output):
         output = 'public ' + output
+        if 'with' in vinput:
+            output = output + 'with'
     
     return output
     
@@ -126,6 +130,7 @@ def reNames(vinput2):
 ##-Main----------------------------------------------------
 def interpret(voiceinput): 
 
+
     #print(voiceinput) 
     
     #commands = reCommands(voiceinput)
@@ -138,8 +143,8 @@ def interpret(voiceinput):
 
     interpretedString = statements + ' ' + datatypes + ' ' + symbols + ' ' +' '.join(names) + ' ' +' '.join(values)
 
-    #print(interpretedString)
-    print("The Interpreter returns: '" + interpretedString + "'")
+    print(interpretedString)
     return interpretedString
 
-#interpret('while death is not true live')			#for debugging
+
+#interpret('while death is not true live')
